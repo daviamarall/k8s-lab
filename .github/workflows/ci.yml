@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate-manifests:
+    name: Render & validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: azure/setup-kubectl@v4
+        with:
+          version: "v1.31.0"
+
+      - name: Install kubeconform
+        run: |
+          curl -sSL https://github.com/yannh/kubeconform/releases/latest/download/kubeconform-linux-amd64.tar.gz \
+            | sudo tar xz -C /usr/local/bin kubeconform
+
+      - name: Render and validate (dev)
+        run: |
+          kubectl kustomize overlays/dev > rendered-dev.yaml
+          kubeconform -strict -summary rendered-dev.yaml
+
+      - name: Render and validate (prod)
+        run: |
+          kubectl kustomize overlays/prod > rendered-prod.yaml
+          kubeconform -strict -summary rendered-prod.yaml

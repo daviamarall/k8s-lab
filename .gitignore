@@ -1,0 +1,12 @@
+# Kubernetes
+*.kubeconfig
+
+# Segredos (nunca versionar)
+secret.yaml
+*.secret.yaml
+
+# Sistema / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

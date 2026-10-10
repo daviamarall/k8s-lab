@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: podinfo-config
+data:
+  PODINFO_UI_COLOR: "#2f81f7"
+  PODINFO_UI_MESSAGE: "k8s-lab"

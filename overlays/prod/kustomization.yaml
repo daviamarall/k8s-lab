@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: podinfo-prod
+
+resources:
+  - namespace.yaml
+  - ../../base
+  - hpa.yaml
+  - ingress.yaml
+
+replicas:
+  - name: podinfo
+    count: 3
+
+commonLabels:
+  environment: prod
+
+images:
+  - name: stefanprodan/podinfo
+    newTag: 6.7.0
