@@ -31,3 +31,8 @@ jobs:
         run: |
           kubectl kustomize overlays/prod > rendered-prod.yaml
           kubeconform -strict -summary rendered-prod.yaml
+
+      - name: Render and validate (dotnet-api app)
+        run: |
+          kubectl kustomize apps/dotnet-api > rendered-dotnet-api.yaml
+          kubeconform -strict -summary rendered-dotnet-api.yaml

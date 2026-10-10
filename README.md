@@ -33,6 +33,8 @@ k8s-lab/
 ├── overlays/
 │   ├── dev/              # namespace, 1 réplica
 │   └── prod/             # namespace, 3 réplicas + HPA + Ingress
+├── apps/
+│   └── dotnet-api/       # deploy do dotnet-backend-api (imagem do GHCR)
 ├── kind/kind-config.yaml # cluster local com portas mapeadas
 ├── scripts/              # create-cluster.sh, deploy.sh
 └── .github/workflows/ci.yml
@@ -63,6 +65,25 @@ kubectl get hpa -n podinfo-prod -w
 ```bash
 kubectl kustomize overlays/dev
 kubectl kustomize overlays/prod
+```
+
+## 🔗 Deploy real: `dotnet-backend-api` (GHCR)
+
+O diretório `apps/dotnet-api/` implanta a API do projeto **[dotnet-backend-api](https://github.com/daviamarall/dotnet-backend-api)** — cuja imagem é publicada automaticamente no **GitHub Container Registry** pela sua CI.
+
+Fluxo completo (a "história" que conecta os projetos):
+
+```
+dotnet-backend-api  ──CI──▶  ghcr.io/daviamarall/dotnet-backend-api:latest
+                                            │
+                              kubectl apply -k apps/dotnet-api
+                                            ▼
+                       Kubernetes (liveness /healthz  ·  readiness /readyz)
+```
+
+```bash
+kubectl apply -k apps/dotnet-api
+kubectl get pods -n dotnet-api
 ```
 
 ## 🔐 Boas práticas aplicadas
