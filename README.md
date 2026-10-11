@@ -12,6 +12,21 @@ Manifestos de **Kubernetes** organizados com **Kustomize** (base + overlays), co
 
 ---
 
+## 🏗️ Fluxo
+
+```mermaid
+flowchart LR
+    base["base/ — Kustomize"] --> dev["overlays/dev"]
+    base --> prod["overlays/prod"]
+    base --> api["apps/dotnet-api"]
+
+    dev -- "kubectl apply -k" --> k8s[["Kubernetes (kind)"]]
+    prod -- "kubectl apply -k" --> k8s
+    api -- "kubectl apply -k" --> k8s
+
+    api -. "puxa imagem" .-> ghcr["ghcr.io/daviamarall/dotnet-backend-api"]
+```
+
 ## 🎯 O que este repositório demonstra
 
 - **Kustomize** com `base` reutilizável e `overlays` (`dev` e `prod`)
