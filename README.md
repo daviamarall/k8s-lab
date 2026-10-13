@@ -6,7 +6,7 @@
 ![kind](https://img.shields.io/badge/kind-local_cluster-326CE5?logo=kubernetes&logoColor=white)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-Manifestos de **Kubernetes** organizados com **Kustomize** (base + overlays), com **probes**, **HPA**, **resource limits** e boas práticas de segurança — rodando num cluster local com **kind**.
+Manifestos de **Kubernetes** organizados com **Kustomize** (base + overlays), com **probes**, **HPA**, **resource limits** e boas práticas de segurança rodando num cluster local com **kind**.
 
 > Projeto de portfólio focado em **DevOps / SRE / plataforma**.
 
